@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"github.com/spf13/viper"
+	"go-auth/cmd"
 )
 
 func main() {
-	fmt.Println("Welcome to my server")
-	//e := echo.New()
-	//e.Start(":8080")
+	viper.SetConfigFile(".env")
+	cmd.Execute()
 }

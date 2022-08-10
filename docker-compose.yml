@@ -16,6 +16,7 @@ services:
   mysqldb:
     image: mysql:8.0
     restart: always
+    container_name: go-auth-mysql
     environment:
       - MYSQL_DATABASE=go_db
       - MYSQL_ROOT_PASSWORD=root
