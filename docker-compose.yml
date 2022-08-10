@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go-auth-server
+    volumes:
+      - .:/usr/src/app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - default_network
+  mysqldb:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=go_db
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
+    driver: local
+networks:
+  default_network:
+    driver: bridge
