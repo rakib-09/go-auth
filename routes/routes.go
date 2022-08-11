@@ -1,6 +1,9 @@
 package routes
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+	m "go-auth/middlewares"
+)
 
 type Routes struct {
 	echo *echo.Echo
@@ -13,5 +16,5 @@ func New(e *echo.Echo) *Routes {
 }
 
 func (r *Routes) Init() {
-
+	m.Init(r.echo)
 }

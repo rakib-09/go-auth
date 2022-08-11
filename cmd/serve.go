@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"github.com/labstack/echo/v4"
 	"github.com/spf13/cobra"
+	routes2 "go-auth/routes"
+	"go-auth/server"
 )
 
 var serveCmd = &cobra.Command{
@@ -10,5 +13,12 @@ var serveCmd = &cobra.Command{
 }
 
 func serve(cmd *cobra.Command, args []string) {
-	//var echo = echo.New()
+	//db = conn.DB()
+
+	var echo = echo.New()
+	var Routes = routes2.New(echo)
+	var Server = server.New(echo)
+
+	Routes.Init()
+	Server.Start()
 }
