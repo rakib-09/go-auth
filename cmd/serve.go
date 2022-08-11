@@ -15,7 +15,7 @@ var serveCmd = &cobra.Command{
 func serve(cmd *cobra.Command, args []string) {
 	//TODO: Initiate all clients
 	//db = conn.DB()
-	//TODO: Initiate Repositories, Services, Controllers
+	//TODO: Initiate repositories, Services, Controllers
 
 	var echo = echo.New()
 	var Routes = routes2.New(echo)
