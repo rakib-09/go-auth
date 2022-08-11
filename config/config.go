@@ -34,10 +34,18 @@ func App() *AppConfig {
 }
 
 func LoadConfig() {
+	viper.AddConfigPath(".")
+	viper.SetConfigName("app")
+	viper.SetConfigType("env")
+
+	viper.AutomaticEnv()
+
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("Error while reading config file %s", err)
 	}
+
+	viper.Unmarshal(&config)
 
 	config.App = &AppConfig{
 		Name: viper.GetString("APP_NAME"),

@@ -9,19 +9,29 @@ services:
     volumes:
       - .:/usr/src/app
     restart: unless-stopped
+    depends_on:
+      - mysqldb
     ports:
       - "8080:8080"
+    expose:
+      - 8080
     networks:
       - default_network
   mysqldb:
     image: mysql:8.0
     restart: always
     container_name: go-auth-mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
     environment:
       - MYSQL_DATABASE=go_db
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - default_network
 
 volumes:
   db:
