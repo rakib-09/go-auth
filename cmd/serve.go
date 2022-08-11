@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"go-auth/conn"
 )
 
 var serveCmd = &cobra.Command{
@@ -11,5 +10,5 @@ var serveCmd = &cobra.Command{
 }
 
 func serve(cmd *cobra.Command, args []string) {
-	dbClient := conn.DB()
+	//var echo = echo.New()
 }
