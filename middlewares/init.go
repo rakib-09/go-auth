@@ -14,4 +14,5 @@ func Init(e *echo.Echo) {
 	e.Use(m.CORS())
 	e.Use(m.Secure())
 	e.Use(m.Recover())
+	//e.Use(m.JWT([]byte("secret")))
 }

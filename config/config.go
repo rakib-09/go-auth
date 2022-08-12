@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/golang-jwt/jwt"
 	"github.com/spf13/viper"
 	"log"
 )
@@ -16,6 +17,12 @@ type DBConfig struct {
 	User     string
 	Pass     string
 	Database string
+}
+
+type JwtCustomClaims struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	jwt.StandardClaims
 }
 
 type Config struct {
