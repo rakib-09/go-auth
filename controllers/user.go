@@ -10,9 +10,7 @@ type UserController struct {
 }
 
 func NewUserController() *UserController {
-	return &UserController{
-		//authService: authSvc,
-	}
+	return &UserController{}
 }
 
 func (uc *UserController) GetUser(c echo.Context) error {

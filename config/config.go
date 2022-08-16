@@ -4,6 +4,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/spf13/viper"
 	"log"
+	"time"
 )
 
 type AppConfig struct {
@@ -25,9 +26,18 @@ type JwtCustomClaims struct {
 	jwt.StandardClaims
 }
 
+type JwtConfig struct {
+	AccessTokenSecret  string
+	RefreshTokenSecret string
+	AccessTokenExpiry  time.Duration
+	RefreshTokenExpiry time.Duration
+	ContextKey         string
+}
+
 type Config struct {
 	App *AppConfig
 	DB  *DBConfig
+	Jwt *JwtConfig
 }
 
 var config *Config
@@ -38,6 +48,10 @@ func DB() *DBConfig {
 
 func App() *AppConfig {
 	return config.App
+}
+
+func Jwt() *JwtConfig {
+	return config.Jwt
 }
 
 func LoadConfig() {
@@ -65,5 +79,13 @@ func LoadConfig() {
 		User:     viper.GetString("DB_USER"),
 		Pass:     viper.GetString("DB_PASSWORD"),
 		Database: viper.GetString("DB_DATABASE"),
+	}
+
+	config.Jwt = &JwtConfig{
+		AccessTokenSecret:  "accesstokensecret",
+		RefreshTokenSecret: "refreshtokensecret",
+		AccessTokenExpiry:  300,
+		RefreshTokenExpiry: 10080,
+		ContextKey:         "user",
 	}
 }

@@ -11,12 +11,14 @@ import (
 type Routes struct {
 	echo           *echo.Echo
 	UserController *c.UserController
+	AuthController *c.AuthController
 }
 
-func New(e *echo.Echo, uc *c.UserController) *Routes {
+func New(e *echo.Echo, uc *c.UserController, ac *c.AuthController) *Routes {
 	return &Routes{
 		echo:           e,
 		UserController: uc,
+		AuthController: ac,
 	}
 }
 
