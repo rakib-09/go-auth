@@ -49,6 +49,10 @@ func (svc *AuthService) authenticate(email string, password string) (*types.User
 	if err = bcrypt.CompareHashAndPassword(hashedPass, loginPass); err != nil {
 		return nil, errors.InvalidCreds
 	}
-
-	return user, nil
+	var resp = &types.UserResp{}
+	resp.ID = user.ID
+	resp.Name = user.Name
+	resp.Email = user.Email
+	resp.CreatedAt = user.CreatedAt
+	return resp, nil
 }

@@ -28,14 +28,14 @@ func (r *Routes) Init() {
 	g := e.Group("/api/v1")
 
 	// public
-	g.GET("/login", r.UserController.GetUser)
+	g.POST("/login", r.AuthController.Login)
 	g.POST("/register", r.UserController.CreateUser)
 
 	g2 := e.Group("")
 
 	conf := middleware.JWTConfig{
 		Claims:     &config.JwtCustomClaims{},
-		SigningKey: []byte("secret"),
+		SigningKey: []byte("accesstokensecret"),
 	}
 	g2.Use(middleware.JWTWithConfig(conf))
 	g2.GET("/auth", r.UserController.CreateUser)

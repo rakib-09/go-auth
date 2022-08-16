@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"fmt"
 	"go-auth/models"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -30,17 +31,10 @@ func (repo *UserRepository) UpsertUser(user *models.User) (*models.User, error) 
 	return user, nil
 }
 
-func (repo *UserRepository) GetUserById(userId int) (*models.User, error) {
+func (repo *UserRepository) GetUser(key string, value interface{}) (*models.User, error) {
 	var user models.User
-	if err := repo.db.Model(&models.User{}).Where("id = ?", userId).First(&user).Error; err != nil {
-		return nil, err
-	}
-	return &user, nil
-}
-
-func (repo *UserRepository) GetUserByEmail(userEmail string) (*models.User, error) {
-	var user models.User
-	if err := repo.db.Model(&models.User{}).Where("email = ?", userEmail).First(&user).Error; err != nil {
+	if err := repo.db.Model(&models.User{}).Where(fmt.Sprintf("%s = ?", key), value).
+		First(&user).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil

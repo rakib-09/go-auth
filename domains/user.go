@@ -2,16 +2,15 @@ package domains
 
 import (
 	"go-auth/models"
-	"go-auth/types"
 )
 
 type UserRepoUseCase interface {
-	UpsertUser(user *models.User) (*types.UserResp, error)
-	GetUser(key string, value interface{}) (*types.UserResp, error)
+	UpsertUser(user *models.User) (*models.User, error)
+	GetUser(key string, value interface{}) (*models.User, error)
 }
 
 type UserSvcUseCase interface {
-	createUser()
-	GetUserById(userId int) (*types.UserResp, error)
-	GetUserByEmail(userEmail string) (*types.UserResp, error)
+	//createUser()
+	GetUserById(userId int) (*models.User, error)
+	GetUserByEmail(userEmail string) (*models.User, error)
 }

@@ -6,7 +6,7 @@ import (
 	"go-auth/conn"
 	"go-auth/controllers"
 	"go-auth/repositories"
-	routes2 "go-auth/routes"
+	r "go-auth/routes"
 	"go-auth/server"
 	"go-auth/services"
 )
@@ -21,13 +21,15 @@ func serve(cmd *cobra.Command, args []string) {
 	dbClient := conn.DB()
 	//TODO: Initiate repositories, Services, Controllers
 	userRepo := repositories.NewUserRepository(dbClient)
-	authSvc := services.NewAuthService(userRepo)
+	userSvc := services.NewUserService(userRepo)
+	jwtSvc := services.NewJwtSvc()
+	authSvc := services.NewAuthService(userSvc, jwtSvc)
 
 	userController := controllers.NewUserController()
 	authController := controllers.NewAuthController(authSvc)
 
 	var echo = echo.New()
-	var Routes = routes2.New(echo, userController, authController)
+	var Routes = r.New(echo, userController, authController)
 	var Server = server.New(echo)
 
 	Routes.Init()

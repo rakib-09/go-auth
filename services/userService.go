@@ -2,7 +2,7 @@ package services
 
 import (
 	"go-auth/domains"
-	"go-auth/types"
+	"go-auth/models"
 )
 
 type UserService struct {
@@ -13,12 +13,12 @@ func NewUserService(ur domains.UserRepoUseCase) *UserService {
 	return &UserService{userRepo: ur}
 }
 
-func (u *UserService) createUser() {
-	//TODO implement me
-	panic("implement me")
-}
+//func (u *UserService) createUser() {
+//	//TODO implement me
+//	panic("implement me")
+//}
 
-func (u *UserService) GetUserById(userId int) (*types.UserResp, error) {
+func (u *UserService) GetUserById(userId int) (*models.User, error) {
 	user, err := u.userRepo.GetUser("id", userId)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (u *UserService) GetUserById(userId int) (*types.UserResp, error) {
 	return user, nil
 }
 
-func (u *UserService) GetUserByEmail(userEmail string) (*types.UserResp, error) {
+func (u *UserService) GetUserByEmail(userEmail string) (*models.User, error) {
 	user, err := u.userRepo.GetUser("email", userEmail)
 	if err != nil {
 		return nil, err

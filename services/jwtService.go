@@ -11,7 +11,7 @@ import (
 type JwtTokenService struct {
 }
 
-func NewJwtToken() *JwtTokenService {
+func NewJwtSvc() *JwtTokenService {
 	return &JwtTokenService{}
 }
 
