@@ -5,6 +5,7 @@ import (
 	"go-auth/errors"
 	"go-auth/types"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 )
 
 type AuthService struct {
@@ -30,7 +31,7 @@ func (svc *AuthService) Login(email string, password string) (*types.LoginResp, 
 	if err != nil {
 		return nil, err
 	}
-	token, err = svc.jwtSvc.CreateToken(identity.ID)
+	token, err = svc.jwtSvc.CreateToken(identity)
 	if err != nil {
 		return nil, err
 	}
@@ -39,13 +40,13 @@ func (svc *AuthService) Login(email string, password string) (*types.LoginResp, 
 }
 
 func (svc *AuthService) authenticate(email string, password string) (*types.UserResp, error) {
-	user, err := svc.userSvc.GetUserByEmail(email)
+	user, err := svc.userSvc.GetUserByEmail(email, true)
 	if err != nil {
 		return nil, errors.InvalidCreds
 	}
 	loginPass := []byte(password)
 	hashedPass := []byte(user.Password)
-
+	log.Println(user.Password)
 	if err = bcrypt.CompareHashAndPassword(hashedPass, loginPass); err != nil {
 		return nil, errors.InvalidCreds
 	}

@@ -21,8 +21,8 @@ type DBConfig struct {
 }
 
 type JwtCustomClaims struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Name string `json:"name"`
+	UID  uint   `json:"uid"`
 	jwt.StandardClaims
 }
 

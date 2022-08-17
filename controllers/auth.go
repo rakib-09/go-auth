@@ -25,7 +25,7 @@ func (auth AuthController) Login(c echo.Context) error {
 	var token = &types.LoginResp{}
 
 	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
+		return c.JSON(http.StatusBadRequest, types.ErrorMessage(err.Error()))
 	}
 
 	if err := req.Validate(); err != nil {
@@ -33,7 +33,7 @@ func (auth AuthController) Login(c echo.Context) error {
 	}
 
 	if token, err = auth.AuthUseCase.Login(req.Email, req.Password); err != nil {
-		return err
+		return c.JSON(http.StatusBadRequest, types.ErrorMessage(err.Error()))
 	}
 	return c.JSON(http.StatusOK, token)
 

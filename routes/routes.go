@@ -38,5 +38,5 @@ func (r *Routes) Init() {
 		SigningKey: []byte("accesstokensecret"),
 	}
 	g2.Use(middleware.JWTWithConfig(conf))
-	g2.GET("/auth", r.UserController.CreateUser)
+	g2.GET("/auth", r.UserController.GetUser)
 }

@@ -16,33 +16,29 @@ func NewUserService(ur domains.UserRepoUseCase) *UserService {
 }
 
 func (u *UserService) CreateUser(req *types.UserReq) (*types.UserResp, error) {
-	var newUser = &types.UserResp{}
 	data, _ := u.makeUserData(req)
 	user, err := u.userRepo.CreateUser(data)
 	if err != nil {
 		return nil, err
 	}
-	newUser.ID = user.ID
-	newUser.Email = user.Email
-	newUser.Name = user.Name
-	newUser.CreatedAt = user.CreatedAt
-	return newUser, err
+	newUser := u.makeUserResp(user, false)
+	return newUser, nil
 }
 
-func (u *UserService) GetUserById(userId int) (*models.User, error) {
+func (u *UserService) GetUserById(userId int, password bool) (*types.UserResp, error) {
 	user, err := u.userRepo.GetUser("id", userId)
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return u.makeUserResp(user, password), nil
 }
 
-func (u *UserService) GetUserByEmail(userEmail string) (*models.User, error) {
+func (u *UserService) GetUserByEmail(userEmail string, password bool) (*types.UserResp, error) {
 	user, err := u.userRepo.GetUser("email", userEmail)
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return u.makeUserResp(user, password), nil
 }
 
 func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
@@ -57,4 +53,16 @@ func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
 func (u *UserService) hashPassword(plainPass string) string {
 	hashedPass, _ := bcrypt.GenerateFromPassword([]byte(plainPass), 10)
 	return string(hashedPass)
+}
+
+func (u *UserService) makeUserResp(user *models.User, password bool) *types.UserResp {
+	var userDetails = &types.UserResp{}
+	if password {
+		userDetails.Password = user.Password
+	}
+	userDetails.ID = user.ID
+	userDetails.Email = user.Email
+	userDetails.Name = user.Name
+	userDetails.CreatedAt = user.CreatedAt
+	return userDetails
 }
