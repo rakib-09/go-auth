@@ -22,10 +22,10 @@ type LoginResp struct {
 	AccessToken string `json:"access_token"`
 }
 
-func (r *LoginRequest) validate() *ValidationError {
+func (r *LoginRequest) Validate() *ValidationError {
 	err := v.ValidateStruct(r,
 		v.Field(&r.Email, v.Required, is.Email),
-		v.Field(&r.Password, v.Required, v.Min(6)),
+		v.Field(&r.Password, v.Required, v.Length(6, 50)),
 	)
 	if err != nil {
 		return &ValidationError{

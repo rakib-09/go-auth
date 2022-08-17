@@ -25,7 +25,7 @@ func serve(cmd *cobra.Command, args []string) {
 	jwtSvc := services.NewJwtSvc()
 	authSvc := services.NewAuthService(userSvc, jwtSvc)
 
-	userController := controllers.NewUserController()
+	userController := controllers.NewUserController(userSvc)
 	authController := controllers.NewAuthController(authSvc)
 
 	var echo = echo.New()

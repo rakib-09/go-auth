@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go-auth/models"
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
 )
 
 type UserRepository struct {
@@ -15,18 +14,10 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	return &UserRepository{db: db}
 }
 
-func (repo *UserRepository) UpsertUser(user *models.User) (*models.User, error) {
-	if err := repo.db.Clauses(clause.OnConflict{
-		Columns:   []clause.Column{{Name: "id"}},
-		UpdateAll: false,
-		DoUpdates: clause.AssignmentColumns([]string{
-			"id",
-			"name",
-			"email",
-			"password",
-		}),
-	}, clause.Returning{}).Create(&user).Error; err != nil {
-		return nil, err
+func (repo *UserRepository) CreateUser(user *models.User) (*models.User, error) {
+	result := repo.db.Model(&models.User{}).Create(&user)
+	if result.Error != nil {
+		return nil, result.Error
 	}
 	return user, nil
 }

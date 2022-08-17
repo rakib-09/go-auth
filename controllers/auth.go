@@ -28,6 +28,10 @@ func (auth AuthController) Login(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
+	if err := req.Validate(); err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
+
 	if token, err = auth.AuthUseCase.Login(req.Email, req.Password); err != nil {
 		return err
 	}
