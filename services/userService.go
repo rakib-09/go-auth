@@ -26,7 +26,7 @@ func (u *UserService) CreateUser(req *types.UserReq) (*types.UserResp, error) {
 }
 
 func (u *UserService) GetUserById(userId int, password bool) (*types.UserResp, error) {
-	user, err := u.userRepo.GetUser("id", userId)
+	user, err := u.userRepo.GetUserBy("id", userId)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func (u *UserService) GetUserById(userId int, password bool) (*types.UserResp, e
 }
 
 func (u *UserService) GetUserByEmail(userEmail string, password bool) (*types.UserResp, error) {
-	user, err := u.userRepo.GetUser("email", userEmail)
+	user, err := u.userRepo.GetUserBy("email", userEmail)
 	if err != nil {
 		return nil, err
 	}

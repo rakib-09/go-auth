@@ -22,7 +22,7 @@ func (repo *UserRepository) CreateUser(user *models.User) (*models.User, error) 
 	return user, nil
 }
 
-func (repo *UserRepository) GetUser(key string, value interface{}) (*models.User, error) {
+func (repo *UserRepository) GetUserBy(key string, value interface{}) (*models.User, error) {
 	var user models.User
 	if err := repo.db.Model(&models.User{}).Where(fmt.Sprintf("%s = ?", key), value).
 		First(&user).Error; err != nil {

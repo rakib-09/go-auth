@@ -7,7 +7,7 @@ import (
 
 type UserRepoUseCase interface {
 	CreateUser(user *models.User) (*models.User, error)
-	GetUser(key string, value interface{}) (*models.User, error)
+	GetUserBy(key string, value interface{}) (*models.User, error)
 }
 
 type UserSvcUseCase interface {
