@@ -22,7 +22,6 @@ type CompanyResp struct {
 func (r *CompanyReq) Validate() *ValidationError {
 	err := v.ValidateStruct(r,
 		v.Field(&r.Title, v.Required),
-		v.Field(&r.OwnerUserId, v.Required),
 		v.Field(&r.Phone, v.Required, v.Length(10, 20)),
 		v.Field(&r.Address, v.Required),
 	)

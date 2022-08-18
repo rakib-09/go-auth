@@ -7,10 +7,10 @@ import (
 )
 
 type CompanyService struct {
-	repo repositories.CompanyRepository
+	repo *repositories.CompanyRepository
 }
 
-func NewCompanyService(repo repositories.CompanyRepository) *CompanyService {
+func NewCompanyService(repo *repositories.CompanyRepository) *CompanyService {
 	return &CompanyService{repo: repo}
 }
 
@@ -24,8 +24,15 @@ func (c CompanyService) Create(req *types.CompanyReq) (*types.CompanyResp, error
 }
 
 func (c CompanyService) Update(id int, req *types.CompanyReq) bool {
-	result, err := c.repo.Update(id, req)
-	if err != nil || !result {
+	company, err := c.repo.FindBy("id", id)
+	if err != nil {
+		return false
+	}
+	company.Title = req.Title
+	company.Phone = req.Phone
+	company.Address = req.Address
+	result := c.repo.Update(company)
+	if !result {
 		return false
 	}
 	return true

@@ -25,7 +25,7 @@ func (u *UserService) CreateUser(req *types.UserReq) (*types.UserResp, error) {
 	return newUser, nil
 }
 
-func (u *UserService) GetUserById(userId int, password bool) (*types.UserResp, error) {
+func (u *UserService) GetUserById(userId uint, password bool) (*types.UserResp, error) {
 	user, err := u.userRepo.GetUserBy("id", userId)
 	if err != nil {
 		return nil, err

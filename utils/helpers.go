@@ -6,8 +6,8 @@ import (
 	"go-auth/config"
 )
 
-func GetUserIdFromJwt(c echo.Context) int {
+func GetUserIdFromJwt(c echo.Context) uint {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(*config.JwtCustomClaims)
-	return int(claims.UID)
+	return claims.UID
 }

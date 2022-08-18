@@ -9,16 +9,18 @@ import (
 )
 
 type Routes struct {
-	echo           *echo.Echo
-	UserController *c.UserController
-	AuthController *c.AuthController
+	echo              *echo.Echo
+	UserController    *c.UserController
+	AuthController    *c.AuthController
+	CompanyController *c.CompanyController
 }
 
-func New(e *echo.Echo, uc *c.UserController, ac *c.AuthController) *Routes {
+func New(e *echo.Echo, uc *c.UserController, ac *c.AuthController, cc *c.CompanyController) *Routes {
 	return &Routes{
-		echo:           e,
-		UserController: uc,
-		AuthController: ac,
+		echo:              e,
+		UserController:    uc,
+		AuthController:    ac,
+		CompanyController: cc,
 	}
 }
 
@@ -39,5 +41,6 @@ func (r *Routes) Init() {
 	}
 	g2.Use(middleware.JWTWithConfig(conf))
 	g2.GET("/users", r.UserController.GetUser)
-
+	g2.POST("/companies", r.CompanyController.Create)
+	g2.PUT("/companies/:id", r.CompanyController.Update)
 }

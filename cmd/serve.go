@@ -17,19 +17,23 @@ var serveCmd = &cobra.Command{
 }
 
 func serve(cmd *cobra.Command, args []string) {
-	//TODO: Initiate all clients
+	// clients
 	dbClient := conn.DB()
-	//TODO: Initiate repositories, Services, Controllers
+	// repos
 	userRepo := repositories.NewUserRepository(dbClient)
+	companyRepo := repositories.NewCompanyRepository(dbClient)
+	// services
 	userSvc := services.NewUserService(userRepo)
 	jwtSvc := services.NewJwtSvc()
 	authSvc := services.NewAuthService(userSvc, jwtSvc)
-
+	companySvc := services.NewCompanyService(companyRepo)
+	// controllers
 	userController := controllers.NewUserController(userSvc)
 	authController := controllers.NewAuthController(authSvc)
+	companyController := controllers.NewCompanyController(companySvc)
 
 	var echo = echo.New()
-	var Routes = r.New(echo, userController, authController)
+	var Routes = r.New(echo, userController, authController, companyController)
 	var Server = server.New(echo)
 
 	Routes.Init()

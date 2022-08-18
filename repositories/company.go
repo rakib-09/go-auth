@@ -3,7 +3,6 @@ package repositories
 import (
 	"fmt"
 	"go-auth/models"
-	"go-auth/types"
 	"gorm.io/gorm"
 )
 
@@ -23,12 +22,12 @@ func (repo *CompanyRepository) Create(data *models.Company) (*models.Company, er
 	return data, nil
 }
 
-func (repo *CompanyRepository) Update(id int, data *types.CompanyReq) (bool, error) {
-	err := repo.db.Model(&models.Company{}).Where("id", id).Updates(data).Error
+func (repo *CompanyRepository) Update(data *models.Company) bool {
+	err := repo.db.Save(&data).Error
 	if err != nil {
-		return false, err
+		return false
 	}
-	return true, nil
+	return true
 }
 
 func (repo *CompanyRepository) FindBy(key string, value interface{}) (*models.Company, error) {

@@ -1,6 +1,9 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Company struct {
 	gorm.Model
@@ -9,6 +12,5 @@ type Company struct {
 	OwnerUserId uint   `json:"ownerUserId"`
 	Phone       string `json:"phone"`
 	Address     string `json:"address"`
-	CreatedAt   string `json:"created_At"`
-	Owner       User   `gorm:"references:OwnerUserId"`
+	CreatedAt   time.Time
 }

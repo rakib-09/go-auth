@@ -7,7 +7,7 @@ import (
 
 type CompanyRepoUseCase interface {
 	Create(company *models.Company) (*models.Company, error)
-	Update(company *models.Company) (*models.Company, error)
+	Update(data *models.Company) bool
 	FindBy(key string, value interface{}) (*models.Company, error)
 }
 
