@@ -2,7 +2,6 @@ package services
 
 import (
 	"go-auth/domains"
-	"go-auth/models"
 	"go-auth/types"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -46,8 +45,8 @@ func (u *UserService) hashPassword(plainPass string) string {
 	return string(hashedPass)
 }
 
-func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
-	var user = &models.User{}
+func (u *UserService) makeUserData(req *types.UserReq) (*domains.User, error) {
+	var user = &domains.User{}
 	user.Name = req.Name
 	user.Password = u.hashPassword(req.Password)
 	user.Email = req.Email
@@ -55,7 +54,7 @@ func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
 	return user, nil
 }
 
-func (u *UserService) makeUserResp(user *models.User, password bool) *types.UserResp {
+func (u *UserService) makeUserResp(user *domains.User, password bool) *types.UserResp {
 	var userDetails = &types.UserResp{}
 	if password {
 		userDetails.Password = user.Password

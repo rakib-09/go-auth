@@ -3,8 +3,8 @@ package cmd
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/cobra"
-	"go-auth/conn"
 	"go-auth/controllers"
+	"go-auth/db"
 	"go-auth/repositories"
 	r "go-auth/routes"
 	"go-auth/server"
@@ -18,7 +18,7 @@ var serveCmd = &cobra.Command{
 
 func serve(cmd *cobra.Command, args []string) {
 	// clients
-	dbClient := conn.DB()
+	dbClient := db.Client()
 	// repos
 	userRepo := repositories.NewUserRepository(dbClient)
 	companyRepo := repositories.NewCompanyRepository(dbClient)

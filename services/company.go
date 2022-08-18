@@ -1,7 +1,7 @@
 package services
 
 import (
-	"go-auth/models"
+	"go-auth/domains"
 	"go-auth/repositories"
 	"go-auth/types"
 )
@@ -46,8 +46,8 @@ func (c CompanyService) FindCompanyByUserId(userId int) (*types.CompanyResp, err
 	return c.makeCompanyResp(data), nil
 }
 
-func (c CompanyService) makeCompanyModel(req *types.CompanyReq) *models.Company {
-	var company = &models.Company{}
+func (c CompanyService) makeCompanyModel(req *types.CompanyReq) *domains.Company {
+	var company = &domains.Company{}
 	company.Title = req.Title
 	company.OwnerUserId = req.OwnerUserId
 	company.Phone = req.Phone
@@ -55,7 +55,7 @@ func (c CompanyService) makeCompanyModel(req *types.CompanyReq) *models.Company 
 	return company
 }
 
-func (c CompanyService) makeCompanyResp(data *models.Company) *types.CompanyResp {
+func (c CompanyService) makeCompanyResp(data *domains.Company) *types.CompanyResp {
 	var company = &types.CompanyResp{}
 	company.ID = data.ID
 	company.Title = data.Title

@@ -1,18 +1,27 @@
 package domains
 
 import (
-	"go-auth/models"
 	"go-auth/types"
+	"time"
 )
 
 type CompanyRepoUseCase interface {
-	Create(company *models.Company) (*models.Company, error)
-	Update(data *models.Company) bool
-	FindBy(key string, value interface{}) (*models.Company, error)
+	Create(company *Company) (*Company, error)
+	Update(data *Company) bool
+	FindBy(key string, value interface{}) (*Company, error)
 }
 
 type CompanySvcUseCase interface {
 	Create(req *types.CompanyReq) (*types.CompanyResp, error)
 	Update(id int, req *types.CompanyReq) bool
 	FindCompanyByUserId(userId int) (*types.CompanyResp, error)
+}
+
+type Company struct {
+	ID          uint   `json:"id"`
+	Title       string `json:"title"`
+	OwnerUserId uint   `json:"ownerUserId"`
+	Phone       string `json:"phone"`
+	Address     string `json:"address"`
+	CreatedAt   time.Time
 }

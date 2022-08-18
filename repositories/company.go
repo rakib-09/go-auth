@@ -1,40 +1,26 @@
 package repositories
 
 import (
-	"fmt"
-	"go-auth/models"
-	"gorm.io/gorm"
+	"go-auth/db"
+	"go-auth/domains"
 )
 
 type CompanyRepository struct {
-	db *gorm.DB
+	ds *db.AuthDatabase
 }
 
-func NewCompanyRepository(db *gorm.DB) *CompanyRepository {
-	return &CompanyRepository{db: db}
+func NewCompanyRepository(ds *db.AuthDatabase) *CompanyRepository {
+	return &CompanyRepository{ds: ds}
 }
 
-func (repo *CompanyRepository) Create(data *models.Company) (*models.Company, error) {
-	result := repo.db.Model(&models.Company{}).Create(&data)
-	if result.Error != nil {
-		return nil, result.Error
-	}
-	return data, nil
+func (repo *CompanyRepository) Create(company *domains.Company) (*domains.Company, error) {
+	return repo.ds.Create(company)
 }
 
-func (repo *CompanyRepository) Update(data *models.Company) bool {
-	err := repo.db.Save(&data).Error
-	if err != nil {
-		return false
-	}
-	return true
+func (repo *CompanyRepository) Update(data *domains.Company) bool {
+	return repo.ds.Update(data)
 }
 
-func (repo *CompanyRepository) FindBy(key string, value interface{}) (*models.Company, error) {
-	var company models.Company
-	if err := repo.db.Model(&models.Company{}).Where(fmt.Sprintf("%s = ?", key), value).
-		First(&company).Error; err != nil {
-		return nil, err
-	}
-	return &company, nil
+func (repo *CompanyRepository) FindBy(key string, value interface{}) (*domains.Company, error) {
+	return repo.ds.FindBy(key, value)
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"go-auth/config"
-	"go-auth/conn"
+	"go-auth/db"
 	"os"
 )
 
@@ -20,7 +20,7 @@ func init() {
 
 func Execute() {
 	config.LoadConfig()
-	conn.ConnectDB()
+	db.ConnectDB()
 
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
