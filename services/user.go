@@ -41,6 +41,11 @@ func (u *UserService) GetUserByEmail(userEmail string, password bool) (*types.Us
 	return u.makeUserResp(user, password), nil
 }
 
+func (u *UserService) hashPassword(plainPass string) string {
+	hashedPass, _ := bcrypt.GenerateFromPassword([]byte(plainPass), 10)
+	return string(hashedPass)
+}
+
 func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
 	var user = &models.User{}
 	user.Name = req.Name
@@ -48,11 +53,6 @@ func (u *UserService) makeUserData(req *types.UserReq) (*models.User, error) {
 	user.Email = req.Email
 
 	return user, nil
-}
-
-func (u *UserService) hashPassword(plainPass string) string {
-	hashedPass, _ := bcrypt.GenerateFromPassword([]byte(plainPass), 10)
-	return string(hashedPass)
 }
 
 func (u *UserService) makeUserResp(user *models.User, password bool) *types.UserResp {

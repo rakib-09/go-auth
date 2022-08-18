@@ -5,6 +5,14 @@ import (
 )
 
 type CompanyReq struct {
+	Title       string `json:"title,omitempty"`
+	OwnerUserId uint   `json:"ownerUserId,omitempty"`
+	Phone       string `json:"phone,omitempty"`
+	Address     string `json:"address,omitempty"`
+}
+
+type CompanyResp struct {
+	ID          uint   `json:"id"`
 	Title       string `json:"title"`
 	OwnerUserId uint   `json:"ownerUserId"`
 	Phone       string `json:"phone"`

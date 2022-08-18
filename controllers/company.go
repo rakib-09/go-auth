@@ -9,3 +9,7 @@ type CompanyController struct {
 func NewCompanyController(svc services.CompanyService) *CompanyController {
 	return &CompanyController{svc: svc}
 }
+
+func (c CompanyController) Create() {
+
+}

@@ -1,11 +1,10 @@
 package controllers
 
 import (
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"go-auth/config"
 	"go-auth/domains"
 	"go-auth/types"
+	"go-auth/utils"
 	"net/http"
 )
 
@@ -20,10 +19,8 @@ func NewUserController(UserSvc domains.UserSvcUseCase) *UserController {
 }
 
 func (uc *UserController) GetUser(c echo.Context) error {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(*config.JwtCustomClaims)
-	userId := claims.UID
-	userInfo, err := uc.UserSvc.GetUserById(int(userId), false)
+	userId := utils.GetUserIdFromJwt(c)
+	userInfo, err := uc.UserSvc.GetUserById(userId, false)
 	if err != nil {
 		return err
 	}
@@ -34,7 +31,7 @@ func (uc *UserController) CreateUser(c echo.Context) error {
 	var req *types.UserReq
 	var err error
 	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, types.ErrorMessage(err.Error()))
+		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
 	}
 
 	if err := req.Validate(); err != nil {
@@ -43,7 +40,7 @@ func (uc *UserController) CreateUser(c echo.Context) error {
 
 	res, err := uc.UserSvc.CreateUser(req)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, types.ErrorMessage(err.Error()))
+		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
 	}
 	return c.JSON(http.StatusOK, res)
 }

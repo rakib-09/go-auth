@@ -1,11 +1,11 @@
 package types
 
 type Msg struct {
-	Error string
+	Message string
 }
 
-func ErrorMessage(msg string) Msg {
+func CommonResponse(msg string) Msg {
 	return Msg{
-		Error: msg,
+		Message: msg,
 	}
 }
