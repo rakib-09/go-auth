@@ -25,4 +25,5 @@ type Company struct {
 	Address     string `json:"address"`
 	CreatedAt   time.Time
 	User        User
+	Brand       []Brand
 }

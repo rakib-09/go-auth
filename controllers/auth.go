@@ -29,7 +29,7 @@ func (auth AuthController) Login(c echo.Context) error {
 	}
 
 	if err := req.Validate(); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
+		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
 
 	if token, err = auth.AuthUseCase.Login(req.Email, req.Password); err != nil {

@@ -25,7 +25,7 @@ func (cc CompanyController) Create(c echo.Context) error {
 	}
 
 	if err := req.Validate(); err != nil {
-		return c.JSON(http.StatusBadRequest, err)
+		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
 
 	req.OwnerUserId = utils.GetUserIdFromJwt(c)
