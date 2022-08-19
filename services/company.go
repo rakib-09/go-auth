@@ -38,8 +38,8 @@ func (c CompanyService) Update(id int, req *types.CompanyReq) bool {
 	return true
 }
 
-func (c CompanyService) FindCompanyByUserId(userId int) (*types.CompanyResp, error) {
-	data, err := c.repo.FindBy("ownerUserId", userId)
+func (c CompanyService) FindCompanyByUserId(userId uint) (*types.CompanyResp, error) {
+	data, err := c.repo.FindBy("owner_user_id", userId)
 	if err != nil {
 		return nil, err
 	}
@@ -62,5 +62,8 @@ func (c CompanyService) makeCompanyResp(data *domains.Company) *types.CompanyRes
 	company.OwnerUserId = data.OwnerUserId
 	company.Phone = data.Phone
 	company.Address = data.Address
+	company.User.ID = data.User.ID
+	company.User.Name = data.User.Name
+	company.User.Email = data.User.Email
 	return company
 }

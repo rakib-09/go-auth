@@ -12,11 +12,12 @@ type CompanyReq struct {
 }
 
 type CompanyResp struct {
-	ID          uint   `json:"id"`
-	Title       string `json:"title"`
-	OwnerUserId uint   `json:"ownerUserId"`
-	Phone       string `json:"phone"`
-	Address     string `json:"address"`
+	ID          uint     `json:"id"`
+	Title       string   `json:"title"`
+	OwnerUserId uint     `json:"ownerUserId"`
+	Phone       string   `json:"phone"`
+	Address     string   `json:"address"`
+	User        UserResp `json:"user,omitempty"`
 }
 
 func (r *CompanyReq) Validate() *ValidationError {

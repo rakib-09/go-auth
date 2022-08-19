@@ -14,14 +14,15 @@ type CompanyRepoUseCase interface {
 type CompanySvcUseCase interface {
 	Create(req *types.CompanyReq) (*types.CompanyResp, error)
 	Update(id int, req *types.CompanyReq) bool
-	FindCompanyByUserId(userId int) (*types.CompanyResp, error)
+	FindCompanyByUserId(userId uint) (*types.CompanyResp, error)
 }
 
 type Company struct {
 	ID          uint   `json:"id"`
 	Title       string `json:"title"`
-	OwnerUserId uint   `json:"ownerUserId"`
+	OwnerUserId uint   `json:"OwnerUserId"`
 	Phone       string `json:"phone"`
 	Address     string `json:"address"`
 	CreatedAt   time.Time
+	User        User
 }

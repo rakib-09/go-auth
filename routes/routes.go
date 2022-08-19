@@ -41,6 +41,7 @@ func (r *Routes) Init() {
 	}
 	g2.Use(middleware.JWTWithConfig(conf))
 	g2.GET("/users", r.UserController.GetUser)
+	g2.GET("/companies", r.CompanyController.Show)
 	g2.POST("/companies", r.CompanyController.Create)
 	g2.PUT("/companies/:id", r.CompanyController.Update)
 }

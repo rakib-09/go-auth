@@ -1,6 +1,7 @@
 package db
 
 import (
+	"encoding/json"
 	"fmt"
 	"go-auth/db/entities"
 	"go-auth/domains"
@@ -23,10 +24,13 @@ func (db AuthDatabase) Update(data *domains.Company) bool {
 }
 
 func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, error) {
-	var company domains.Company
-	if err := db.DB.Model(&entities.Company{}).Where(fmt.Sprintf("%s = ?", key), value).
-		First(&company).Error; err != nil {
+	var company entities.Company
+	var companyResp domains.Company
+	if err := db.DB.Model(&entities.Company{}).Preload("User").Where(fmt.Sprintf("%s = ?", key), value).
+		Take(&company).Error; err != nil {
 		return nil, err
 	}
-	return &company, nil
+	stringify, _ := json.Marshal(company)
+	json.Unmarshal(stringify, &companyResp)
+	return &companyResp, nil
 }

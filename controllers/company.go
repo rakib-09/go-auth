@@ -5,7 +5,6 @@ import (
 	"go-auth/services"
 	"go-auth/types"
 	"go-auth/utils"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -30,8 +29,17 @@ func (cc CompanyController) Create(c echo.Context) error {
 	}
 
 	req.OwnerUserId = utils.GetUserIdFromJwt(c)
-	log.Print(req)
 	res, err := cc.svc.Create(req)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
+	}
+	return c.JSON(http.StatusOK, res)
+}
+
+func (cc CompanyController) Show(c echo.Context) error {
+	//id, _ := strconv.Atoi(c.Param("id"))
+	userId := utils.GetUserIdFromJwt(c)
+	res, err := cc.svc.FindCompanyByUserId(userId)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
 	}
