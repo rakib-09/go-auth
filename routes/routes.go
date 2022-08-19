@@ -13,14 +13,16 @@ type Routes struct {
 	UserController    *c.UserController
 	AuthController    *c.AuthController
 	CompanyController *c.CompanyController
+	BrandController   *c.BrandController
 }
 
-func New(e *echo.Echo, uc *c.UserController, ac *c.AuthController, cc *c.CompanyController) *Routes {
+func New(e *echo.Echo, uc *c.UserController, ac *c.AuthController, cc *c.CompanyController, bc *c.BrandController) *Routes {
 	return &Routes{
 		echo:              e,
 		UserController:    uc,
 		AuthController:    ac,
 		CompanyController: cc,
+		BrandController:   bc,
 	}
 }
 
@@ -44,4 +46,5 @@ func (r *Routes) Init() {
 	g2.GET("/companies", r.CompanyController.Show)
 	g2.POST("/companies", r.CompanyController.Create)
 	g2.PUT("/companies/:id", r.CompanyController.Update)
+	g2.POST("/brands", r.BrandController.Create)
 }

@@ -7,9 +7,8 @@ import (
 
 type Company struct {
 	gorm.Model
-	ID          uint   `json:"id" gorm:"primarykey"`
 	Title       string `json:"title"`
-	OwnerUserId uint   `json:"ownerUserId"`
+	OwnerUserId int    `json:"owner_user_id"`
 	Phone       string `json:"phone"`
 	Address     string `json:"address"`
 	CreatedAt   time.Time

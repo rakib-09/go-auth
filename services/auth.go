@@ -1,8 +1,8 @@
 package services
 
 import (
+	"go-auth/const"
 	"go-auth/domains"
-	"go-auth/errors"
 	"go-auth/types"
 	"golang.org/x/crypto/bcrypt"
 	"log"
@@ -42,13 +42,13 @@ func (svc *AuthService) Login(email string, password string) (*types.LoginResp, 
 func (svc *AuthService) authenticate(email string, password string) (*types.UserResp, error) {
 	user, err := svc.userSvc.GetUserByEmail(email, true)
 	if err != nil {
-		return nil, errors.InvalidCreds
+		return nil, _const.InvalidCreds
 	}
 	loginPass := []byte(password)
 	hashedPass := []byte(user.Password)
 	log.Println(user.Password)
 	if err = bcrypt.CompareHashAndPassword(hashedPass, loginPass); err != nil {
-		return nil, errors.InvalidCreds
+		return nil, _const.InvalidCreds
 	}
 	var resp = &types.UserResp{}
 	resp.ID = user.ID

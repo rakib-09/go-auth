@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/labstack/echo/v4"
+	_const "go-auth/const"
 	"go-auth/domains"
 	"go-auth/types"
 	"go-auth/utils"
@@ -38,9 +39,9 @@ func (uc *UserController) CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
 
-	res, err := uc.UserSvc.CreateUser(req)
+	_, err = uc.UserSvc.CreateUser(req)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
 	}
-	return c.JSON(http.StatusOK, res)
+	return c.JSON(http.StatusOK, types.CommonResponse(_const.SuccessfullyCreated))
 }

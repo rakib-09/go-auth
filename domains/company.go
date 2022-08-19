@@ -6,24 +6,24 @@ import (
 )
 
 type CompanyRepoUseCase interface {
-	Create(company *Company) (*Company, error)
-	Update(data *Company) bool
+	Create(company *Company) error
+	Update(data *Company) error
 	FindBy(key string, value interface{}) (*Company, error)
 }
 
 type CompanySvcUseCase interface {
-	Create(req *types.CompanyReq) (*types.CompanyResp, error)
-	Update(id int, req *types.CompanyReq) bool
+	Create(req *types.CompanyReq) error
+	Update(id int, req *types.CompanyReq) error
 	FindCompanyByUserId(userId uint) (*types.CompanyResp, error)
 }
 
 type Company struct {
-	ID          uint   `json:"id"`
+	ID          int    `json:"id,omitempty"`
 	Title       string `json:"title"`
-	OwnerUserId uint   `json:"OwnerUserId"`
+	OwnerUserId int    `json:"owner_user_id"`
 	Phone       string `json:"phone"`
 	Address     string `json:"address"`
 	CreatedAt   time.Time
-	User        User
+	User        User `json:"user,omitempty"`
 	Brand       []Brand
 }

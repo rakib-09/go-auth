@@ -19,7 +19,7 @@ type BrandSvcUseCase interface {
 type Brand struct {
 	ID        uint   `json:"id"`
 	Title     string `json:"title"`
-	CompanyId uint   `json:"company_id"`
+	CompanyId int    `json:"company_id"`
 	Phone     string `json:"phone"`
 	Address   string `json:"address"`
 	CreatedAt time.Time

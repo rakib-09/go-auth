@@ -23,17 +23,19 @@ func (c BrandService) Create(req *types.BrandReq) (*types.BrandResp, error) {
 }
 
 func (c BrandService) FindBrandsByCompanyId(companyId uint) (*types.BrandResp, error) {
-	data, err := c.repo.FindBrandsByCompanyId(companyId)
-	if err != nil {
-		return nil, err
-	}
-	return c.makeBrandResp(data), nil
+	//data, err := c.repo.FindBrandsByCompanyId(companyId)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//return c.makeBrandResp(data), nil
+	return nil, nil
 }
 
 func (c BrandService) makeBrandModel(req *types.BrandReq) *domains.Brand {
 	var Brand = &domains.Brand{}
 	Brand.Title = req.Title
 	Brand.Phone = req.Phone
+	Brand.CompanyId = req.CompanyId
 	Brand.Address = req.Address
 	return Brand
 }

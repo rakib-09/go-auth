@@ -13,11 +13,11 @@ func NewCompanyRepository(ds *db.AuthDatabase) *CompanyRepository {
 	return &CompanyRepository{ds: ds}
 }
 
-func (repo *CompanyRepository) Create(company *domains.Company) (*domains.Company, error) {
+func (repo *CompanyRepository) Create(company *domains.Company) error {
 	return repo.ds.Create(company)
 }
 
-func (repo *CompanyRepository) Update(data *domains.Company) bool {
+func (repo *CompanyRepository) Update(data *domains.Company) error {
 	return repo.ds.Update(data)
 }
 

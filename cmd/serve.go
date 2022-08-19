@@ -22,18 +22,21 @@ func serve(cmd *cobra.Command, args []string) {
 	// repos
 	userRepo := repositories.NewUserRepository(dbClient)
 	companyRepo := repositories.NewCompanyRepository(dbClient)
+	brandRepo := repositories.NewBrandRepository(dbClient)
 	// services
 	userSvc := services.NewUserService(userRepo)
 	jwtSvc := services.NewJwtSvc()
 	authSvc := services.NewAuthService(userSvc, jwtSvc)
 	companySvc := services.NewCompanyService(companyRepo)
+	brandSvc := services.NewBrandService(brandRepo)
 	// controllers
 	userController := controllers.NewUserController(userSvc)
 	authController := controllers.NewAuthController(authSvc)
 	companyController := controllers.NewCompanyController(companySvc)
+	brandController := controllers.NewBrandController(brandSvc)
 
 	var echo = echo.New()
-	var Routes = r.New(echo, userController, authController, companyController)
+	var Routes = r.New(echo, userController, authController, companyController, brandController)
 	var Server = server.New(echo)
 
 	Routes.Init()

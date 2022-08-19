@@ -3,7 +3,7 @@ package services
 import (
 	"github.com/golang-jwt/jwt"
 	"go-auth/config"
-	"go-auth/errors"
+	"go-auth/const"
 	"go-auth/types"
 	"time"
 )
@@ -32,7 +32,7 @@ func (jt *JwtTokenService) CreateToken(user *types.UserResp) (*types.JwtToken, e
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token.AccessToken, err = at.SignedString([]byte(jwtConf.AccessTokenSecret))
 	if err != nil {
-		return nil, errors.InvalidAccessToken
+		return nil, _const.InvalidAccessToken
 	}
 
 	rtClaims := jwt.MapClaims{}
@@ -43,7 +43,7 @@ func (jt *JwtTokenService) CreateToken(user *types.UserResp) (*types.JwtToken, e
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtClaims)
 	token.RefreshToken, err = rt.SignedString([]byte(jwtConf.RefreshTokenSecret))
 	if err != nil {
-		return nil, errors.InvalidAccessToken
+		return nil, _const.InvalidAccessToken
 	}
 
 	return token, nil

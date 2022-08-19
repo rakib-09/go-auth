@@ -13,28 +13,28 @@ func NewCompanyService(repo domains.CompanyRepoUseCase) *CompanyService {
 	return &CompanyService{repo: repo}
 }
 
-func (c CompanyService) Create(req *types.CompanyReq) (*types.CompanyResp, error) {
+func (c CompanyService) Create(req *types.CompanyReq) error {
 	data := c.makeCompanyModel(req)
-	companyModel, err := c.repo.Create(data)
+	err := c.repo.Create(data)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return c.makeCompanyResp(companyModel), nil
+	return nil
 }
 
-func (c CompanyService) Update(id int, req *types.CompanyReq) bool {
+func (c CompanyService) Update(id int, req *types.CompanyReq) error {
 	company, err := c.repo.FindBy("id", id)
 	if err != nil {
-		return false
+		return err
 	}
 	company.Title = req.Title
 	company.Phone = req.Phone
 	company.Address = req.Address
 	result := c.repo.Update(company)
-	if !result {
-		return false
+	if result != nil {
+		return result
 	}
-	return true
+	return nil
 }
 
 func (c CompanyService) FindCompanyByUserId(userId uint) (*types.CompanyResp, error) {

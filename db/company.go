@@ -3,24 +3,28 @@ package db
 import (
 	"encoding/json"
 	"fmt"
+	_const "go-auth/const"
 	"go-auth/db/entities"
 	"go-auth/domains"
 )
 
-func (db AuthDatabase) Create(company *domains.Company) (*domains.Company, error) {
-	result := db.DB.Model(&entities.Company{}).Create(&company)
+func (db AuthDatabase) Create(company *domains.Company) error {
+	var entity entities.Company
+	stringify, _ := json.Marshal(company)
+	json.Unmarshal(stringify, &entity)
+	result := db.DB.Model(&entities.Company{}).Create(&entity)
 	if result.Error != nil {
-		return nil, result.Error
+		return _const.SomethingWentWrong
 	}
-	return company, nil
+	return nil
 }
 
-func (db AuthDatabase) Update(data *domains.Company) bool {
+func (db AuthDatabase) Update(data *domains.Company) error {
 	err := db.DB.Save(&data).Error
 	if err != nil {
-		return false
+		return _const.SomethingWentWrong
 	}
-	return true
+	return nil
 }
 
 func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, error) {
@@ -28,7 +32,7 @@ func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, 
 	var companyResp domains.Company
 	if err := db.DB.Model(&entities.Company{}).Joins("User").Where(fmt.Sprintf("%s = ?", key), value).
 		First(&company).Error; err != nil {
-		return nil, err
+		return nil, _const.SomethingWentWrong
 	}
 	stringify, _ := json.Marshal(company)
 	json.Unmarshal(stringify, &companyResp)
