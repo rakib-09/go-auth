@@ -26,8 +26,8 @@ func (db AuthDatabase) Update(data *domains.Company) bool {
 func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, error) {
 	var company entities.Company
 	var companyResp domains.Company
-	if err := db.DB.Model(&entities.Company{}).Preload("User").Where(fmt.Sprintf("%s = ?", key), value).
-		Take(&company).Error; err != nil {
+	if err := db.DB.Model(&entities.Company{}).Joins("User").Where(fmt.Sprintf("%s = ?", key), value).
+		First(&company).Error; err != nil {
 		return nil, err
 	}
 	stringify, _ := json.Marshal(company)
