@@ -2,15 +2,14 @@ package services
 
 import (
 	"go-auth/domains"
-	"go-auth/repositories"
 	"go-auth/types"
 )
 
 type BrandService struct {
-	repo *repositories.BrandRepository
+	repo domains.BrandRepoUseCase
 }
 
-func NewBrandService(repo *repositories.BrandRepository) *BrandService {
+func NewBrandService(repo domains.BrandRepoUseCase) *BrandService {
 	return &BrandService{repo: repo}
 }
 

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-auth/services"
+	"go-auth/domains"
 	"go-auth/types"
 	"go-auth/utils"
 	"net/http"
@@ -10,10 +10,10 @@ import (
 )
 
 type CompanyController struct {
-	svc *services.CompanyService
+	svc domains.CompanySvcUseCase
 }
 
-func NewCompanyController(svc *services.CompanyService) *CompanyController {
+func NewCompanyController(svc domains.CompanySvcUseCase) *CompanyController {
 	return &CompanyController{svc: svc}
 }
 
@@ -37,7 +37,6 @@ func (cc CompanyController) Create(c echo.Context) error {
 }
 
 func (cc CompanyController) Show(c echo.Context) error {
-	//id, _ := strconv.Atoi(c.Param("id"))
 	userId := utils.GetUserIdFromJwt(c)
 	res, err := cc.svc.FindCompanyByUserId(userId)
 	if err != nil {

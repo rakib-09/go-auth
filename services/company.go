@@ -2,15 +2,14 @@ package services
 
 import (
 	"go-auth/domains"
-	"go-auth/repositories"
 	"go-auth/types"
 )
 
 type CompanyService struct {
-	repo *repositories.CompanyRepository
+	repo domains.CompanyRepoUseCase
 }
 
-func NewCompanyService(repo *repositories.CompanyRepository) *CompanyService {
+func NewCompanyService(repo domains.CompanyRepoUseCase) *CompanyService {
 	return &CompanyService{repo: repo}
 }
 
