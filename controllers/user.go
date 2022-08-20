@@ -39,7 +39,7 @@ func (uc *UserController) CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusUnprocessableEntity, err)
 	}
 
-	_, err = uc.UserSvc.CreateUser(req)
+	err = uc.UserSvc.CreateUser(req)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, types.CommonResponse(err.Error()))
 	}

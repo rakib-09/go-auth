@@ -6,12 +6,15 @@ import (
 	_const "go-auth/const"
 	"go-auth/db/entities"
 	"go-auth/domains"
+	"go-auth/utils"
 )
 
 func (db AuthDatabase) Create(company *domains.Company) error {
 	var entity entities.Company
-	stringify, _ := json.Marshal(company)
-	json.Unmarshal(stringify, &entity)
+	err := utils.MapStruct(&company, &entity)
+	if err != nil {
+		return nil
+	}
 	result := db.DB.Model(&entities.Company{}).Create(&entity)
 	if result.Error != nil {
 		return _const.SomethingWentWrong

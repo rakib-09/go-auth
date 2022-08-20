@@ -4,14 +4,20 @@ import (
 	"fmt"
 	"go-auth/db/entities"
 	"go-auth/domains"
+	"go-auth/utils"
 )
 
-func (db AuthDatabase) CreateUser(user *domains.User) (*domains.User, error) {
-	result := db.DB.Model(&entities.User{}).Create(&user)
-	if result.Error != nil {
-		return nil, result.Error
+func (db AuthDatabase) CreateUser(user *domains.User) error {
+	var entity entities.User
+	err := utils.MapStruct(&user, &entity)
+	if err != nil {
+		return err
 	}
-	return user, nil
+	result := db.DB.Model(&entities.User{}).Create(&entity)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
 }
 
 func (db AuthDatabase) GetUserBy(key string, value interface{}) (*domains.User, error) {

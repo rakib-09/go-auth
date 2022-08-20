@@ -6,12 +6,12 @@ import (
 )
 
 type UserRepoUseCase interface {
-	CreateUser(user *User) (*User, error)
+	CreateUser(user *User) error
 	GetUserBy(key string, value interface{}) (*User, error)
 }
 
 type UserSvcUseCase interface {
-	CreateUser(req *types.UserReq) (*types.UserResp, error)
+	CreateUser(req *types.UserReq) error
 	GetUserById(userId uint, password bool) (*types.UserResp, error)
 	GetUserByEmail(userEmail string, password bool) (*types.UserResp, error)
 }

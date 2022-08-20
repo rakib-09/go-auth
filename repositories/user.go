@@ -13,7 +13,7 @@ func NewUserRepository(ds *db.AuthDatabase) *UserRepository {
 	return &UserRepository{ds: ds}
 }
 
-func (repo *UserRepository) CreateUser(user *domains.User) (*domains.User, error) {
+func (repo *UserRepository) CreateUser(user *domains.User) error {
 	return repo.ds.CreateUser(user)
 }
 

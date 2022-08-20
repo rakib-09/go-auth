@@ -14,14 +14,13 @@ func NewUserService(ur domains.UserRepoUseCase) *UserService {
 	return &UserService{userRepo: ur}
 }
 
-func (u *UserService) CreateUser(req *types.UserReq) (*types.UserResp, error) {
+func (u *UserService) CreateUser(req *types.UserReq) error {
 	data, _ := u.makeUserData(req)
-	user, err := u.userRepo.CreateUser(data)
+	err := u.userRepo.CreateUser(data)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	newUser := u.makeUserResp(user, false)
-	return newUser, nil
+	return nil
 }
 
 func (u *UserService) GetUserById(userId uint, password bool) (*types.UserResp, error) {
