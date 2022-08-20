@@ -12,7 +12,7 @@ type UserRepoUseCase interface {
 
 type UserSvcUseCase interface {
 	CreateUser(req *types.UserReq) error
-	GetUserById(userId uint, password bool) (*types.UserResp, error)
+	GetUserById(userId uint, showPassword bool) (*types.UserResp, error)
 	GetUserByEmail(userEmail string, password bool) (*types.UserResp, error)
 }
 

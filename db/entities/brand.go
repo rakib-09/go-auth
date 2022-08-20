@@ -13,5 +13,5 @@ type Brand struct {
 	Phone     string `json:"phone"`
 	Address   string `json:"address"`
 	CreatedAt time.Time
-	Company   Company `gorm:"foreignKey:CompanyId"`
+	Company   Company `json:"company,omitempty"gorm:"foreignKey:CompanyId"`
 }

@@ -23,5 +23,5 @@ type Company struct {
 	Phone       string  `json:"phone,omitempty"`
 	Address     string  `json:"address,omitempty"`
 	User        User    `json:"user,omitempty"`
-	Brand       []Brand `json:"brand,omitempty"`
+	Brand       []Brand `json:"Brand,omitempty"`
 }

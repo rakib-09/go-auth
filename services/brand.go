@@ -3,6 +3,7 @@ package services
 import (
 	"go-auth/domains"
 	"go-auth/types"
+	"go-auth/utils"
 )
 
 type BrandService struct {
@@ -14,8 +15,9 @@ func NewBrandService(repo domains.BrandRepoUseCase) *BrandService {
 }
 
 func (c BrandService) Create(req *types.BrandReq) (*types.BrandResp, error) {
-	data := c.makeBrandModel(req)
-	BrandModel, err := c.repo.CreateBrand(data)
+	var brand domains.Brand
+	utils.MapStruct(&req, &brand)
+	BrandModel, err := c.repo.CreateBrand(&brand)
 	if err != nil {
 		return nil, err
 	}
@@ -31,24 +33,11 @@ func (c BrandService) FindBrandsByCompanyId(companyId uint) (*types.BrandResp, e
 	return nil, nil
 }
 
-func (c BrandService) makeBrandModel(req *types.BrandReq) *domains.Brand {
-	var Brand = &domains.Brand{}
-	Brand.Title = req.Title
-	Brand.Phone = req.Phone
-	Brand.CompanyId = req.CompanyId
-	Brand.Address = req.Address
-	return Brand
-}
-
 func (c BrandService) makeBrandResp(data *domains.Brand) *types.BrandResp {
 	var Brand = &types.BrandResp{}
 	Brand.ID = data.ID
 	Brand.Title = data.Title
 	Brand.Phone = data.Phone
 	Brand.Address = data.Address
-	Brand.Company.ID = data.Company.ID
-	Brand.Company.Title = data.Company.Title
-	Brand.Company.Phone = data.Company.Phone
-	Brand.Company.Address = data.Company.Address
 	return Brand
 }

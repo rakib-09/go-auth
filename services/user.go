@@ -23,12 +23,12 @@ func (u *UserService) CreateUser(req *types.UserReq) error {
 	return nil
 }
 
-func (u *UserService) GetUserById(userId uint, password bool) (*types.UserResp, error) {
+func (u *UserService) GetUserById(userId uint, showPassword bool) (*types.UserResp, error) {
 	user, err := u.userRepo.GetUserBy("id", userId)
 	if err != nil {
 		return nil, err
 	}
-	return u.makeUserResp(user, password), nil
+	return u.makeUserResp(user, showPassword), nil
 }
 
 func (u *UserService) GetUserByEmail(userEmail string, password bool) (*types.UserResp, error) {
@@ -53,9 +53,9 @@ func (u *UserService) makeUserData(req *types.UserReq) (*domains.User, error) {
 	return user, nil
 }
 
-func (u *UserService) makeUserResp(user *domains.User, password bool) *types.UserResp {
+func (u *UserService) makeUserResp(user *domains.User, showPassword bool) *types.UserResp {
 	var userDetails = &types.UserResp{}
-	if password {
+	if showPassword {
 		userDetails.Password = user.Password
 	}
 	userDetails.ID = user.ID

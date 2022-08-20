@@ -20,6 +20,13 @@ type UserReq struct {
 	Password string `json:"password"`
 }
 
+type UserWithoutPassword struct {
+	ID        uint   `json:"id"`
+	Name      string `json:"name"`
+	Email     string `json:"email"`
+	CreatedAt time.Time
+}
+
 func (r *UserReq) Validate() *ValidationError {
 	err := v.ValidateStruct(r,
 		v.Field(&r.Email, v.Required, is.Email),

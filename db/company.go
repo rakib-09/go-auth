@@ -34,7 +34,7 @@ func (db AuthDatabase) Update(data *domains.Company) error {
 func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, error) {
 	var company entities.Company
 	var companyResp domains.Company
-	if err := db.DB.Model(&entities.Company{}).Joins("User").Where(fmt.Sprintf("companies.%s = ?", key), value).
+	if err := db.DB.Model(&entities.Company{}).Joins("User").Preload("Brand").Where(fmt.Sprintf("companies.%s = ?", key), value).
 		First(&company).Error; err != nil {
 		return nil, _const.SomethingWentWrong
 	}

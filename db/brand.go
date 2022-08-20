@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"go-auth/db/entities"
 	"go-auth/domains"
+	"go-auth/utils"
 )
 
 func (db AuthDatabase) CreateBrand(brand *domains.Brand) (*domains.Brand, error) {
-	result := db.DB.Model(&entities.Brand{}).Create(&brand)
+	var entity entities.Brand
+	utils.MapStruct(&brand, &entity)
+	result := db.DB.Model(&entities.Brand{}).Create(&entity)
 	if result.Error != nil {
 		return nil, result.Error
 	}

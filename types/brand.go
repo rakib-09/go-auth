@@ -4,18 +4,18 @@ import v "github.com/go-ozzo/ozzo-validation/v4"
 
 type BrandReq struct {
 	Title     string `json:"title,omitempty"`
-	CompanyId int    `json:"companyId,omitempty"`
+	CompanyId uint   `json:"company_id,omitempty"`
 	Phone     string `json:"phone,omitempty"`
 	Address   string `json:"address,omitempty"`
 }
 
 type BrandResp struct {
-	ID        uint        `json:"id"`
-	Title     string      `json:"title"`
-	CompanyId uint        `json:"companyId"`
-	Phone     string      `json:"phone"`
-	Address   string      `json:"address"`
-	Company   CompanyResp `json:"company,omitempty"`
+	ID        uint   `json:"id"`
+	Title     string `json:"title"`
+	CompanyId uint   `json:"company_id"`
+	Phone     string `json:"phone"`
+	Address   string `json:"address"`
+	//Company   CompanyResp `json:"company,omitempty"`
 }
 
 func (r *BrandReq) Validate() *ValidationError {
