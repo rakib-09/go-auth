@@ -2,7 +2,6 @@ package domains
 
 import (
 	"go-auth/types"
-	"time"
 )
 
 type CompanyRepoUseCase interface {
@@ -18,12 +17,11 @@ type CompanySvcUseCase interface {
 }
 
 type Company struct {
-	ID          int    `json:"id,omitempty"`
-	Title       string `json:"title"`
-	OwnerUserId int    `json:"owner_user_id"`
-	Phone       string `json:"phone"`
-	Address     string `json:"address"`
-	CreatedAt   time.Time
-	User        User `json:"user,omitempty"`
-	Brand       []Brand
+	ID          uint    `json:"id,omitempty"`
+	Title       string  `json:"title,omitempty"`
+	OwnerUserId int     `json:"owner_user_id,omitempty"`
+	Phone       string  `json:"phone,omitempty"`
+	Address     string  `json:"address,omitempty"`
+	User        User    `json:"user,omitempty"`
+	Brand       []Brand `json:"brand,omitempty"`
 }

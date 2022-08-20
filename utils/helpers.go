@@ -20,3 +20,8 @@ func MapStruct(input interface{}, output interface{}) error {
 		return err
 	}
 }
+
+func DumpStruct(input interface{}) string {
+	r, _ := json.MarshalIndent(&input, "", "  ")
+	return string(r)
+}

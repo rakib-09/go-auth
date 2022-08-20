@@ -3,6 +3,7 @@ package services
 import (
 	"go-auth/domains"
 	"go-auth/types"
+	"go-auth/utils"
 )
 
 type CompanyService struct {
@@ -23,14 +24,10 @@ func (c CompanyService) Create(req *types.CompanyReq) error {
 }
 
 func (c CompanyService) Update(id int, req *types.CompanyReq) error {
-	company, err := c.repo.FindBy("id", id)
-	if err != nil {
-		return err
-	}
-	company.Title = req.Title
-	company.Phone = req.Phone
-	company.Address = req.Address
-	result := c.repo.Update(company)
+	var company domains.Company
+	utils.MapStruct(&req, &company)
+	company.ID = uint(id)
+	result := c.repo.Update(&company)
 	if result != nil {
 		return result
 	}

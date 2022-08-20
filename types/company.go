@@ -12,7 +12,7 @@ type CompanyReq struct {
 }
 
 type CompanyResp struct {
-	ID          int      `json:"id"`
+	ID          uint     `json:"id"`
 	Title       string   `json:"title"`
 	OwnerUserId int      `json:"ownerUserId"`
 	Phone       string   `json:"phone"`

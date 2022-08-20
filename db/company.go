@@ -1,7 +1,6 @@
 package db
 
 import (
-	"encoding/json"
 	"fmt"
 	_const "go-auth/const"
 	"go-auth/db/entities"
@@ -23,7 +22,9 @@ func (db AuthDatabase) Create(company *domains.Company) error {
 }
 
 func (db AuthDatabase) Update(data *domains.Company) error {
-	err := db.DB.Save(&data).Error
+	var company entities.Company
+	err := utils.MapStruct(&data, &company)
+	err = db.DB.Model(&entities.Company{}).Where("id", data.ID).Updates(&company).Error
 	if err != nil {
 		return _const.SomethingWentWrong
 	}
@@ -33,11 +34,10 @@ func (db AuthDatabase) Update(data *domains.Company) error {
 func (db AuthDatabase) FindBy(key string, value interface{}) (*domains.Company, error) {
 	var company entities.Company
 	var companyResp domains.Company
-	if err := db.DB.Model(&entities.Company{}).Joins("User").Where(fmt.Sprintf("%s = ?", key), value).
+	if err := db.DB.Model(&entities.Company{}).Joins("User").Where(fmt.Sprintf("companies.%s = ?", key), value).
 		First(&company).Error; err != nil {
 		return nil, _const.SomethingWentWrong
 	}
-	stringify, _ := json.Marshal(company)
-	json.Unmarshal(stringify, &companyResp)
+	utils.MapStruct(&company, &companyResp)
 	return &companyResp, nil
 }
