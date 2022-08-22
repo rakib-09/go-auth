@@ -3,9 +3,9 @@ package routes
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"go-auth/config"
-	c "go-auth/controllers"
-	m "go-auth/middlewares"
+	"github.com/rakib-09/go-auth/config"
+	c "github.com/rakib-09/go-auth/controllers"
+	m "github.com/rakib-09/go-auth/middlewares"
 )
 
 type Routes struct {

@@ -1,4 +1,4 @@
-module go-auth
+module github.com/rakib-09/go-auth
 
 go 1.19
 

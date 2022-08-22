@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"go-auth/config"
+	"github.com/rakib-09/go-auth/config"
 )
 
 func GetUserIdFromJwt(c echo.Context) uint {

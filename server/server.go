@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-auth/config"
+	"github.com/rakib-09/go-auth/config"
 )
 
 type Server struct {

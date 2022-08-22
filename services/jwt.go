@@ -2,9 +2,9 @@ package services
 
 import (
 	"github.com/golang-jwt/jwt"
-	"go-auth/config"
-	"go-auth/const"
-	"go-auth/types"
+	"github.com/rakib-09/go-auth/config"
+	"github.com/rakib-09/go-auth/const"
+	"github.com/rakib-09/go-auth/types"
 	"time"
 )
 

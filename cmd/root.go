@@ -2,15 +2,15 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/rakib-09/go-auth/config"
+	"github.com/rakib-09/go-auth/db"
 	"github.com/spf13/cobra"
-	"go-auth/config"
-	"go-auth/db"
 	"os"
 )
 
 var (
 	RootCmd = &cobra.Command{
-		Use: "go-auth",
+		Use: "github.com/rakib-09/go-auth",
 	}
 )
 

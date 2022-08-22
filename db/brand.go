@@ -3,9 +3,9 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"go-auth/db/entities"
-	"go-auth/domains"
-	"go-auth/utils"
+	"github.com/rakib-09/go-auth/db/entities"
+	"github.com/rakib-09/go-auth/domains"
+	"github.com/rakib-09/go-auth/utils"
 )
 
 func (db AuthDatabase) CreateBrand(brand *domains.Brand) (*domains.Brand, error) {

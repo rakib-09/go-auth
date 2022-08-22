@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"go-auth/config"
+	"github.com/rakib-09/go-auth/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

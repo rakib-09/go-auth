@@ -1,7 +1,7 @@
 package domains
 
 import (
-	"go-auth/types"
+	"github.com/rakib-09/go-auth/types"
 )
 
 type AuthUseCase interface {

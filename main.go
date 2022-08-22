@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-auth/cmd"
+	"github.com/rakib-09/go-auth/cmd"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"go-auth/db"
-	"go-auth/domains"
+	"github.com/rakib-09/go-auth/db"
+	"github.com/rakib-09/go-auth/domains"
 )
 
 type UserRepository struct {

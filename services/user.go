@@ -1,8 +1,8 @@
 package services
 
 import (
-	"go-auth/domains"
-	"go-auth/types"
+	"github.com/rakib-09/go-auth/domains"
+	"github.com/rakib-09/go-auth/types"
 	"golang.org/x/crypto/bcrypt"
 )
 

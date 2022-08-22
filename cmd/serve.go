@@ -2,13 +2,13 @@ package cmd
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/rakib-09/go-auth/controllers"
+	"github.com/rakib-09/go-auth/db"
+	"github.com/rakib-09/go-auth/repositories"
+	r "github.com/rakib-09/go-auth/routes"
+	"github.com/rakib-09/go-auth/server"
+	"github.com/rakib-09/go-auth/services"
 	"github.com/spf13/cobra"
-	"go-auth/controllers"
-	"go-auth/db"
-	"go-auth/repositories"
-	r "go-auth/routes"
-	"go-auth/server"
-	"go-auth/services"
 )
 
 var serveCmd = &cobra.Command{

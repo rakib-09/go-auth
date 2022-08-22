@@ -1,7 +1,7 @@
 package db
 
 import (
-	"go-auth/domains"
+	"github.com/rakib-09/go-auth/domains"
 )
 
 var client AuthDatabase

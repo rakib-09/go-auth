@@ -2,10 +2,10 @@ package db
 
 import (
 	"fmt"
-	_const "go-auth/const"
-	"go-auth/db/entities"
-	"go-auth/domains"
-	"go-auth/utils"
+	_const "github.com/rakib-09/go-auth/const"
+	"github.com/rakib-09/go-auth/db/entities"
+	"github.com/rakib-09/go-auth/domains"
+	"github.com/rakib-09/go-auth/utils"
 )
 
 func (db AuthDatabase) Create(company *domains.Company) error {

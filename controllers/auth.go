@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-auth/domains"
-	"go-auth/types"
+	"github.com/rakib-09/go-auth/domains"
+	"github.com/rakib-09/go-auth/types"
 	"net/http"
 )
 

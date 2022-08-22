@@ -2,9 +2,9 @@ package db
 
 import (
 	"fmt"
-	"go-auth/db/entities"
-	"go-auth/domains"
-	"go-auth/utils"
+	"github.com/rakib-09/go-auth/db/entities"
+	"github.com/rakib-09/go-auth/domains"
+	"github.com/rakib-09/go-auth/utils"
 )
 
 func (db AuthDatabase) CreateUser(user *domains.User) error {
