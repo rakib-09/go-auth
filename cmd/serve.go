@@ -41,4 +41,7 @@ func serve(cmd *cobra.Command, args []string) {
 
 	Routes.Init()
 	Server.Start()
+
+	Server.GracefulShutdown(echo)
+
 }
